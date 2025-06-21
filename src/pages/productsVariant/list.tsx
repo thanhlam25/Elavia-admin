@@ -3,7 +3,7 @@ import { DeleteButton, EditButton, List, ShowButton } from "@refinedev/antd";
 import { BaseRecord, useCustom, useCustomMutation } from "@refinedev/core";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import { Space, Table, Image, Input, Button, Select, Popover, Popconfirm, message } from "antd";
+import { Space, Table, Image, Input, Button, Select, Popover, Popconfirm, message, Tag } from "antd";
 import { useState } from "react";
 
 export const ProductVariantList = () => {
@@ -338,15 +338,14 @@ export const ProductVariantList = () => {
             }}
           />
           <Table.Column
-            align="center"
-            title="Tồn kho"
-            sorter={false}
-            render={(_, record) => {
-              const totalStock = Array.isArray(record.sizes)
-                ? record.sizes.reduce((sum, size) => sum + (size.stock || 0), 0)
-                : 0;
-              return totalStock;
-            }}
+            dataIndex="status"
+            title="Trạng thái"
+            sorter={true}
+            render={(status) => (
+              <Tag color={status ? "green" : "red"}>
+                {status ? "Hoạt động" : "Không hoạt động"}
+              </Tag>
+            )}
           />
           <Table.Column
             dataIndex={["images", "main", "url"]}

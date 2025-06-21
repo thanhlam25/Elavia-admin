@@ -31,6 +31,7 @@ export const ProductList = () => {
         _order: sorter.order,
         ...(filters._name ? { _name: filters._name } : {}),
         ...(filters._sku ? { _sku: filters._sku } : {}),
+        _t: Date.now(), // Tham số random để tránh cache
       },
     },
   });
@@ -86,10 +87,10 @@ export const ProductList = () => {
           });
           
           setSelectedRowKeys([]);
-          refetch();
+          await refetch();
           open?.({
             type: 'success',
-            message: "",
+            message: "Xóa sản phẩm thành công",
           });
         } catch (error) {
           open?.({
@@ -142,6 +143,7 @@ export const ProductList = () => {
       )}
 
       <Table
+        key={tableData.length}
         rowSelection={rowSelection}
         dataSource={Array.isArray(tableData) ? tableData : []}
         rowKey="_id"

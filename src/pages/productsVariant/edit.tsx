@@ -13,7 +13,7 @@ import {
   Space,
   message,
 } from "antd";
-import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
+import { UploadOutlined, DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -89,7 +89,7 @@ export const ProductVariantEdit = () => {
         sizes,
       });
     }
-  }, [queryResult?.data?.data]);
+  }, [queryResult]);
 
   const handleRemoveImage = (file: any, imageType: any) => {
     message.loading({ content: "Đang xóa ảnh...", key: "removeImage" });
@@ -177,7 +177,73 @@ export const ProductVariantEdit = () => {
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
-      <Card title="Chỉnh sửa Sản phẩm Variant" bordered>
+      <Card
+        title="Chỉnh sửa Sản phẩm Variant"
+        bordered
+        // extra={
+        //   <Button
+        //     icon={<ReloadOutlined />}
+        //     onClick={async () => {
+        //       const res = await queryResult?.refetch();
+        //       const data = res?.data?.data;
+        //       if (data) {
+        //         const mainImage = data.images?.main
+        //           ? [
+        //               {
+        //                 uid: data.images.main.public_id,
+        //                 name: "main.jpg",
+        //                 status: "done",
+        //                 url: data.images.main.url,
+        //                 public_id: data.images.main.public_id,
+        //               },
+        //             ]
+        //           : [];
+        //         const hoverImage = data.images?.hover
+        //           ? [
+        //               {
+        //                 uid: data.images.hover.public_id,
+        //                 name: "hover.jpg",
+        //                 status: "done",
+        //                 url: data.images.hover.url,
+        //                 public_id: data.images.hover.public_id,
+        //               },
+        //             ]
+        //           : [];
+        //         const productImages = Array.isArray(data.images?.product)
+        //           ? data.images.product.map((img: any, idx: number) => ({
+        //               uid: img.public_id || idx,
+        //               name: `product_${idx}.jpg`,
+        //               status: "done",
+        //               url: img.url,
+        //               public_id: img.public_id,
+        //             }))
+        //           : [];
+        //         const sizes = fixedSizes.map((size) => {
+        //           const found = data.sizes?.find((s: any) => s.size === size);
+        //           return { size, stock: found?.stock ?? 0 };
+        //         });
+
+        //         formProps.form?.setFieldsValue({
+        //           productId: data.productId?._id || data.productId,
+        //           productName: data.productId?.name || "",
+        //           sku: data.sku,
+        //           price: data.price,
+        //           color: {
+        //             colorName: data.color?.colorName || "",
+        //             actualColor: data.color?.actualColor || "",
+        //             baseColor: data.color?.baseColor || "",
+        //           },
+        //           images: { main: mainImage, hover: hoverImage, product: productImages },
+        //           sizes,
+        //         });
+        //       }
+        //     }}
+        //     type="default"
+        //   >
+        //     Làm mới
+        //   </Button>
+        // }
+      >
         <Form {...formProps} layout="vertical" onFinish={handleFinish}>
           <Row gutter={16}>
             <Col span={12}>

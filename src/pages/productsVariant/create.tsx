@@ -112,12 +112,16 @@ export const ProductVariantCreate = () => {
         }
       );
 
-      message.success("Tạo variant thành công!");
-      navigate(`/variants`);
+      // Reset form trước khi chuyển trang
       formProps.form?.resetFields();
       setMainImage([]);
       setHoverImage([]);
       setProductImages([]);
+
+      // Hiện thông báo và chuyển hướng
+      message.success("Tạo variant thành công!", 1, () => {
+        navigate(`/variants`);
+      });
     } catch (err) {
       message.error("Lỗi khi tạo variant!");
       console.error(err);
